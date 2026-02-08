@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anti-Scam Ear | Gemini 3 Guardian</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=JetBrains+Mono:wght@300;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+</head>
+
+<body>
+    <canvas id="bgCanvas"></canvas>
+
+    <div id="stage-welcome" class="stage active">
+        <div class="logo-text">ANTI-SCAM EAR</div>
+        <div class="description">Neural protection against social engineering threats.</div>
+        <button class="btn-action btn-welcome" onclick="toStage('stage-login')">ENTER SYSTEM</button>
+    </div>
+
+    <div id="stage-login" class="stage">
+        <div class="card">
+            <h2 class="form-title">IDENTITY VERIFICATION</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <input type="email" id="loginEmail" placeholder="OPERATOR EMAIL" required>
+                <input type="password" id="loginPass" placeholder="ACCESS KEY" required>
+
+                <div class="button-group">
+                    <button type="submit" class="btn-action">Login</button>
+                    <button type="button" onclick="handleGoogleLogin()" class="btn-action google-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="18px" height="18px"
+                            style="margin-right: 8px; vertical-align: middle;">
+                            <path fill="#EA4335"
+                                d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+                            <path fill="#4285F4"
+                                d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+                            <path fill="#FBBC05"
+                                d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24s.92 7.54 2.56 10.78l7.97-6.19z" />
+                            <path fill="#34A853"
+                                d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
+                        </svg>
+                        SIGN IN WITH GOOGLE
+                    </button>
+                </div>
+            </form>
+
+            <div class="auth-links" style="margin-top: 20px; font-size: 0.8rem;">
+                <p><a href="#" onclick="handleForgotPassword()"
+                        style="color: var(--neon); text-decoration: underline; cursor: pointer;">FORGOTTEN ACCESS
+                        KEY?</a></p>
+                <p style="color: #94a3b8; margin-top: 10px;">New Operator? <span onclick="toStage('stage-signup')"
+                        style="color: var(--neon); cursor: pointer; text-decoration: underline;">REQUEST
+                        PROVISIONING</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="stage-signup" class="stage">
+        <form id="signupForm" class="card" onsubmit="handleSignup(event)">
+            <h2 class="form-title">IDENTITY PROVISIONING</h2>
+            <input type="text" id="userName" placeholder="FULL NAME" required>
+            <input type="email" id="userEmail" placeholder="SECURE EMAIL" required>
+            <input type="password" id="userPass" placeholder="CREATE PASSWORD" required>
+
+            <div class="button-group">
+                <button type="submit" class="btn-action">Signup</button>
+                <button type="button" onclick="handleGoogleLogin()" class="btn-action google-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="18px" height="18px"
+                        style="margin-right: 8px; vertical-align: middle;">
+                        <path fill="#EA4335"
+                            d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+                        <path fill="#4285F4"
+                            d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+                        <path fill="#FBBC05"
+                            d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24s.92 7.54 2.56 10.78l7.97-6.19z" />
+                        <path fill="#34A853"
+                            d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
+                    </svg>
+                    SIGN UP WITH GOOGLE
+                </button>
+            </div>
+
+            <div class="auth-links" style="margin-top: 15px; font-size: 0.8rem;">
+                <p style="color: #94a3b8;">Already have an ID?
+                    <span onclick="toStage('stage-login')"
+                        style="color: var(--neon); cursor: pointer; text-decoration: underline;">
+                        BACK TO LOGIN
+                    </span>
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <div id="stage-thanks" class="stage">
+        <div class="card verified-card">
+            <div class="check-icon">✓</div>
+            <h2 class="form-title">ID VERIFIED</h2>
+            <p class="sub-text">Welcome to the network.</p>
+        </div>
+    </div>
+
+    <div id="stage-boot" class="stage">
+        <div class="scanner-container">
+            <div class="ring"></div>
+            <div class="scan-line"></div>
+            <div class="percent-box"><span id="percent">0%</span></div>
+        </div>
+        <div id="logContainer" class="boot-logs"></div>
+    </div>
+
+    <div id="stage-ui" class="stage">
+        <div class="status-indicator">● MONITORING ACTIVE</div>
+        <h2 id="finalUserMsg"></h2>
+        <div class="card monitor-card">
+            <p class="engine-status">Gemini API Reasoning: ACTIVE</p>
+            <div id="reasoningLog">> Waiting for neural handshake...</div>
+            <button id="startBtn" class="btn-action" onclick="runGeminiLogic()">START PROTECTION</button>
+        </div>
+    </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
