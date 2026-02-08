@@ -1,15 +1,31 @@
 require("dotenv").config();
+//
 const express = require('express');
-const cors = require('cors');
+const cors = require('cors'); // Ensure this is installed: npm install cors
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+//
+app.use(cors()); // Critical: Allows frontend fetch requests
+app.use(express.json()); // Essential: Parses prompt from JSON body
+
+app.post('/api/gemini', async (req, res) => {
+    try {
+        const { prompt } = req.body;
+        // ... generative AI logic using process.env.GEMINI_API_KEY ...
+        res.json({ output: text });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// ... rest of your backend code ...
+module.exports = app; // Mandatory for Vercel
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-
+// ADD THIS LINE RIGHT HERE
+app.use(express.static("public"));
 // Initialize Gemini SDK
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -46,3 +62,4 @@ app.post('/api/gemini', async (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+module.exports = app;
